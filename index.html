@@ -72,15 +72,18 @@
 
   // ===== 튜닝 =====
   const SCAN_INTERVAL_MS = 140;
-  const RMSE_THRESHOLD = 32;     // 더 관대하게 하려면 36~42
+  const RMSE_THRESHOLD = 80;     // 더 관대하게 하려면 36~42
   const LEVEL_TO_GRAY = [0,85,170,255];
 
   // 사각형 검출용 다운샘플 크기(속도/정확도 타협)
-  const DET_W = 360;
-  const DET_H = 360;
+  #const DET_W = 360;
+  #const DET_H = 360;
+  const DET_W = 480;
+  const DET_H = 480;
 
   // 원근 보정 결과 정사각형 크기
   const WARP_SIZE = 220;
+  const WARP_SIZE = 300;
 
   // ===== 회전/템플릿 =====
   function rotate90(m) {
@@ -441,7 +444,7 @@
 
     setStatus(`스캔 중… score(RMSE)=${Number.isFinite(res.best)?res.best.toFixed(1):"inf"}, match=${res.bestId ?? "-"}, streak=${okStreak}`);
 
-    if (okStreak >= 2 && res.bestUrl) {
+    if (okStreak >= 3 && res.bestUrl) {
       opened = true;
       setStatus(`인식 성공(${res.bestId})! 이동합니다…`);
       window.location.href = res.bestUrl;
